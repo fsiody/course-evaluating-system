@@ -1,0 +1,25 @@
+.oddCourse{
+    background-color: #b3c4d4;
+}
+
+.evenCourse{
+    background-color: #c2d1e0;
+}
+
+.image{
+    /*width: 10%;*/
+    height: 50px;
+    align-items: center;
+    vertical-align: middle;
+}
+
+
+.textInCell{
+    margin: auto;
+}
+
+.centerMe{
+    display: flex;
+    margin: auto;
+    margin-top: 15px;
+}

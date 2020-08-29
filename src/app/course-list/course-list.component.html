@@ -1,0 +1,152 @@
+<div class="container-fluid">  
+  <button (click)="filterOn()" class="btn btn-outline-info centerMe" [hidden]="getFiltering()"> Pokaż filtrowanie </button> 
+  <br>
+  <div class="row" [hidden]="!getFiltering()">
+    <button (click)="filterOff()" class="btn btn-outline-info centerMe" [hidden]="!getFiltering()"> Ukryj fltrowanie </button> 
+    <div class="col-12 col-md-12" > <br/><br/>
+    
+      <label style="text-align: center;">Nazwa kursu</label>      
+      <input type="text" name="name" [(ngModel)]="name"><br><br> 
+
+      <label style="text-align: center;">Semestr</label>      
+      <select name="semestr" [(ngModel)]="semestr">
+        <option></option>
+        <option value="0">0</option>
+        <option value="1">1</option>
+        <option value="2">2</option>
+        <option value="3">3</option>
+        <option value="4">4</option>
+        <option value="5">5</option>
+        <option value="6">6</option>
+        <option value="7">7</option>
+        <option value="8">8</option>
+        <option value="9">9</option>
+        <option value="10">10</option>
+        <option value="11">11</option>
+        <option value="12">12</option>
+      </select>   <br> <br> 
+    
+      <label style="text-align: center;">Ocena min</label>      
+      <select name="omin" [(ngModel)]="omin">
+        <option></option>
+        <option value="0">0</option>
+        <option value="1">1</option>
+        <option value="2">2</option>
+        <option value="3">3</option>
+        <option value="4">4</option>
+        <option value="5">5</option>
+      </select>  <br><br>
+    
+      <label style="text-align: center;">Ocena max</label>
+        <select name="omax" [(ngModel)]="omax">
+          <option></option>
+          <option value="0">0</option>
+          <option value="1">1</option>
+          <option value="2">2</option>
+          <option value="3">3</option>
+          <option value="4">4</option>
+          <option value="5">5</option>
+        </select>    <br><br>
+  
+        <label style="text-align: center;">ECTS min</label>   
+      <select name="emin"  [(ngModel)]="emin">
+        <option></option>
+        <option value="0">0</option>
+        <option value="1">1</option>
+        <option value="2">2</option>
+        <option value="3">3</option>
+        <option value="4">4</option>
+        <option value="5">5</option>
+        <option value="6">6</option>
+        <option value="7">7</option>
+        <option value="8">8</option>
+        <option value="9">9</option>
+        <option value="10">10</option>
+        <option value="11">11</option>
+        <option value="12">12</option>
+        <option value="13">13</option>
+        <option value="14">14</option>
+        <option value="15">15</option>
+        <option value="16">16</option>
+      </select> <br><br>
+     
+      <label style="text-align: center;">ECTS max</label>   
+      <select name="emax" [(ngModel)]="emax" #em>
+        <option></option>
+        <option value="0">0</option>
+        <option value="1">1</option>
+        <option value="2">2</option>
+        <option value="3">3</option>
+        <option value="4">4</option>
+        <option value="5">5</option>
+        <option value="6">6</option>
+        <option value="7">7</option>
+        <option value="8">8</option>
+        <option value="9">9</option>
+        <option value="10">10</option>
+        <option value="11">11</option>
+        <option value="12">12</option>
+        <option value="13">13</option>
+        <option value="14">14</option>
+        <option value="15">15</option>
+        <option value="16">16</option>
+      </select> <br><br>
+    </div>
+  </div>
+  <label style="text-align: center;">Ilość kursów na stronie</label>   
+      <select name="ccp" [(ngModel)]="coursesPerPage" style="width: auto; align-self: auto; display: block; margin: auto;">
+        <option>{{this.coursesPerPage}}</option>
+        <option value="1">1</option>
+        <option value="5">5</option>
+        <option value="10">10</option>
+        <option value="20">20</option>
+      </select> <br><br>
+    <div class="row">
+      <div class="col-12 col-md-12" >
+        <table class="table">
+          <thead>
+            <tr>
+              <th class="align-middle text-center">Obrazek</th>
+              <th class="align-middle text-center">Nazwa kursu</th>
+              <th class="align-middle text-center">Ocena</th>
+              <th class="align-middle text-center"></th>
+              <th class="align-middle"></th>
+              <th class="align-middle"></th>
+            </tr>
+          </thead>
+          <tbody > <!-- 
+            *ngFor="let c of (courseService.courses | nameFilter:name | semestrFilter:semestr | markFilter:omin:omax | ectsFilter:emin:emax), 
+          -->
+          <tr  
+            *ngFor="let c of (this.courses1  | nameFilter:name | semestrFilter:semestr | markFilter:omin:omax | ectsFilter:emin:emax) , 
+           
+            index as i, even as isEven" 
+            [ngClass]="{'table-info' : !isEven, 'table-light' : isEven}" >      
+              <td  *ngIf="shownCourse(i)"> <img class="image centerMe" src="{{c.image}}" alt="{{c.id}}">   </td>
+              <td *ngIf="shownCourse(i)" class="align-middle text-center"> {{c.name}} </td>
+              <td *ngIf="shownCourse(i)" class="align-middle text-center">  {{this.markService.getMark(c.mark, c.students)}} </td>
+              <td *ngIf="shownCourse(i)"> 
+                <button (click)="gotoDetail(c)" class="btn btn-outline-info centerMe"> Szczegóły </button>
+              </td>
+              <td *ngIf="shownCourse(i)"> 
+                <button *ngIf="this.authService.isAdmin()" (click)="deleteCourse(c)" class="btn btn-outline-danger centerMe"> Usuń </button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+  <!--  <h2> {{this.courses1[0].name}} </h2> -->
+
+
+
+    <div class="row">
+      <div class="col-5 col-md-4" > <button (click)="showPrev()" class="btn btn-info centerMe"> Poprzednia strona </button> </div>
+      <div class="col-2 col-md-4" > <h3 class="text-center" style="margin-top:15px">{{pageNumber}} </h3> </div>  
+      <div class="col-5 col-md-4" > <button (click)="showNext()" class="btn btn-info centerMe"> Następna strona</button> </div>
+    </div> 
+    <div class="row"> 
+      <a *ngIf="this.authService.isAdmin()" [routerLink]="['/newCourse']" 
+      (click)="addCourse(courseService)" class="btn btn-outline-info centerMe"> Dodaj nowy kurs </a> </div>
+</div>

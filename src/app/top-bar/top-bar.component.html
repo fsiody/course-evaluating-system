@@ -1,0 +1,37 @@
+<a [routerLink]="['/']">
+    <h1>Course Evaluating System</h1>
+</a>
+
+<div *ngIf=(authService.loggedIn())>
+
+  
+<div class="btn-group dropleft dropdown">
+  <button class="btn btn-secondary dropdown-toggle btn-outline-light" type="button" id="dropdownMenu2" 
+  data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+    Menu
+  </button>
+  <div class="dropdown-menu" aria-labelledby="dropdownMenu2">
+    <p class="text-info" style="margin: auto; text-align: center;"> {{authService.getUser().email}} </p>
+    <a [routerLink]="['/courseList']" class="btn dropdown-item btn-outline-light">Lista kursów</a>
+    <a [routerLink]="['/login']" (click)="this.authService.logout()" class="btn dropdown-item btn-outline-light">Logout</a>
+  </div>
+</div>
+
+</div>
+<div *ngIf=(!authService.loggedIn())>
+
+  
+<div class="btn-group dropleft dropdown">
+  <button class="btn btn-secondary dropdown-toggle btn-outline-light" type="button" id="dropdownMenu2" 
+  data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+    Menu
+  </button>
+  <div class="dropdown-menu" aria-labelledby="dropdownMenu2">
+    <a [routerLink]="['/courseList']" class="btn dropdown-item btn-outline-light">Lista kursów</a>
+    <a [routerLink]="['/login']" class="btn dropdown-item btn-outline-light">Rejestracja</a>
+    <a [routerLink]="['/login']" class="btn dropdown-item btn-outline-light">Login</a>
+  </div>
+</div>
+
+
+</div>

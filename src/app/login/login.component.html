@@ -1,0 +1,30 @@
+<!--
+<div class="wrapper fadeInDown">
+    <div id="formContent">
+        <br> <br>
+        <input type="text" id="login" class="fadeIn second" name="login" placeholder="login"> <br> <br>
+        <input type="password" id="password" class="fadeIn third" name="login" placeholder="password"> <br> <br>
+        <button (click)="login(login.value,password.value)" class="btn btn-outline-info fadeIn fourth"> Log in </button>    
+        <br> <br>
+    </div>
+</div> -->
+
+
+<div class="wrapper fadeInDown">
+    <div id="formContent">
+        <br> <br>
+        <input type="email" placeholder="email" [(ngModel)]="credentials.email" class="fadeIn second">
+        <br> 
+        <input type="password" placeholder="password" [(ngModel)]="credentials.password" class="fadeIn third">
+        <br> <br>
+        <div>
+            <button (click)="login()" class="btn btn-outline-info fadeIn fourth">Login</button>
+        </div> <br> <div>
+            <button (click)="register()" class="btn btn-outline-info fadeIn fourth">Register</button>
+            <br> <br>
+        </div>
+        <h3 class="text-info"> {{ registerInfo }}</h3>
+        <p>{{ credentials | json }}</p>
+
+</div>
+</div>

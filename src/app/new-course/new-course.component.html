@@ -1,0 +1,51 @@
+
+<div class="wrapper fadeInDown">
+    <div id="formContent">
+    <div [formGroup]="newCourseInfo" (ngSubmit)="onSubmit()">
+        <label class="fadeIn second" >Nazwa</label> <input type="text" id="text" 
+            class="fadeIn second" formControlName="name" placeholder="Nazwa"  [(ngModel)]="course.name" #name>
+
+        <label class="fadeIn second" >Identefikator</label> <input type="text" id="text" 
+            class="fadeIn second" formControlName="id" placeholder="max 4 litery"  [(ngModel)]="course.id" #id>
+
+        <label class="fadeIn second" >ECTS</label> <input type="number" id="text" 
+            class="fadeIn second" formControlName="ects" placeholder="ECTS >= 0 "  [(ngModel)]="course.ects">
+
+        <label class="fadeIn second" >Semestr</label> <input type="number" id="text" 
+            class="fadeIn second" formControlName="semestr" placeholder="Semestr > 0"  [(ngModel)]="course.semestr">
+
+        <label class="fadeIn second" >Forma</label> <select class="fadeIn second centerMe"  [(ngModel)]="course.form" formControlName="form" >
+            <option selected value="Wykład">Wykład</option>
+            <option value="ćwiczenia">Ćwiczenia</option>
+            <option value="lab">Lab</option>
+            <option value="projekt">Projekt</option>
+          </select>
+
+        <label class="fadeIn second" >Ilość miejsc</label> <input type="number" id="text" 
+            class="fadeIn second" formControlName="capacity" placeholder="Ilość miejsc"  [(ngModel)]="course.capasity">
+
+        <label class="fadeIn second" >Opis</label> <input type="text" id="text"
+            class="fadeIn second" formControlName="description" placeholder="Opis"  [(ngModel)]="course.description">
+
+       <!-- <label class="fadeIn second" >Obrazek</label> <input #imageInput type="file" accept="image/*" (change)="processFile(imageInput)">
+        -->  </div>
+
+    <div *ngIf="newCourseInfo.invalid" class="alert alert-danger fadeIn second" >
+        <p> Proszę uzupełnić formę zgodnie z wymogami! </p>      
+    </div>
+
+    <div *ngIf="newCourseInfo.invalid" class="alert alert-dark fadeIn second" >
+        <p>Form Value: {{ newCourseInfo.value | json }}</p>
+        <p> Form Status: {{ newCourseInfo.status }} </p>
+  
+        
+    </div>
+
+   
+
+    <button type="submit" [disabled]="newCourseInfo.invalid" (click)="onSubmit()"
+        [ngClass]="{'btn btn-info fadeIn fourth submit': newCourseInfo.valid,
+            'btn btn-outline-info fadeIn fourth submit':newCourseInfo.invalid}"> Dodaj </button>    
+       
+    </div>
+</div>
